@@ -1,0 +1,35 @@
+import xlrd
+
+bok_mingdan=xlrd.open_workbook(r'（需要输出你的文件地址）.xlsx')
+sh_mingdan= bok_mingdan.sheet_by_name("Sheet6")
+nrows_mingdan=sh_mingdan.nrows
+mingdanlist=[]
+for i in range(1,nrows_mingdan):
+    row_data = sh_mingdan.row_values(i)
+    mingdanlist.append(row_data[0])
+naturelist=[]
+
+for kk in range(0,530):
+    s=mingdanlist[kk]
+    print(s)
+#    print(kk,s)
+#    s=str(s1)
+    spos = []
+    rs = "";
+    for i in range(0, len(s)):
+       if not '(' in s:
+           if i == 0:
+               rs = s
+               with open('（需要输入保存成的文档名字）.txt', 'a', encoding='utf-8') as f:
+                   f.write(rs + '\n')            
+       if(s[i] == '('):
+         spos.append(i);
+         continue;
+       if(s[i] == ')' and spos):
+         ts = s[0:spos[-1]]+s[i+1: ];
+         rs = ts;
+         if len(rs)==len(s):
+             pass
+         else:
+             with open('（需要输入保存成的文档名字，同上一个withopen）.txt', 'a', encoding='utf-8') as f:
+                 f.write(rs+ '\n') 
